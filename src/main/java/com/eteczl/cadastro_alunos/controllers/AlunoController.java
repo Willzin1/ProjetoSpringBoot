@@ -35,7 +35,7 @@ public class AlunoController {
         return aluno;
     }
 
-    @PutMapping("/aluno/{id}/edit")
+    @PutMapping("/aluno/{id}")
     public ResponseEntity<Object> update(@PathVariable int id, @RequestBody Aluno alunoNovo) {
         for( Aluno aluno : alunos) {
             if (aluno.getId() == id) {
@@ -48,7 +48,7 @@ public class AlunoController {
         return ResponseEntity.status(404).body(Map.of("erro", "Aluno não encontrado"));
     }
 
-    @DeleteMapping("/aluno/{id}/delete")
+    @DeleteMapping("/aluno/{id}")
     public ResponseEntity<Object> destroy(@PathVariable int id) {
         for(Aluno aluno : alunos) {
             if(aluno.getId() == id) {
