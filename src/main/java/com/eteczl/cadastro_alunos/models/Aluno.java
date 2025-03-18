@@ -1,10 +1,18 @@
 package com.eteczl.cadastro_alunos.models;
 
 public class Aluno {
+    Integer id;
     String nome;
     String sobrenome;
     Integer idade;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
