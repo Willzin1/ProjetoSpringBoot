@@ -1,5 +1,6 @@
 package com.eteczl.cadastro_alunos.models;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class Aluno {
@@ -7,9 +8,11 @@ public class Aluno {
     private Integer id;
 
     @NotNull(message = "Nome não pode ser nulo")
+    @NotBlank(message = "Nome não pode estar vazio")
     private String nome;
 
     @NotNull(message = "Sobrenome não pode ser nulo")
+    @NotBlank(message = "Sobrenome não pode estar vazio")
     private String sobrenome;
 
     @NotNull(message = "Idade não pode ser nulo")
