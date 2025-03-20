@@ -1,9 +1,14 @@
 package com.eteczl.cadastro_alunos.controllers;
 
 import com.eteczl.cadastro_alunos.models.Aluno;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.transform.Source;
+import javax.xml.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +35,7 @@ public class AlunoController {
     }
 
     @PostMapping
-    public Aluno store(@RequestBody Aluno aluno) {
+    public Aluno store(@RequestBody @Valid Aluno aluno) {
         alunos.add(aluno);
         return aluno;
     }

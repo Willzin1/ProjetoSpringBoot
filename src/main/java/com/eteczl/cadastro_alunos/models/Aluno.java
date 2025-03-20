@@ -1,10 +1,19 @@
 package com.eteczl.cadastro_alunos.models;
 
+import jakarta.validation.constraints.NotNull;
+
 public class Aluno {
-    Integer id;
-    String nome;
-    String sobrenome;
-    Integer idade;
+    @NotNull(message = "id não pode ser nulo.")
+    private Integer id;
+
+    @NotNull(message = "Nome não pode ser nulo")
+    private String nome;
+
+    @NotNull(message = "Sobrenome não pode ser nulo")
+    private String sobrenome;
+
+    @NotNull(message = "Idade não pode ser nulo")
+    private Integer idade;
 
     public Integer getId() {
         return id;
