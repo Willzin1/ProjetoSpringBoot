@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
-public class Aluno extends User {
+public class Professor extends User {
 
     @NotNull(message = "CPF não pode ser nulo")
     @NotBlank(message = "CPF não pode ficar em branco")
