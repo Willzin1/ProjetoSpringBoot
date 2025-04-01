@@ -4,7 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class Aluno extends User {
-    @NotNull(message = "id não pode ser nulo.")
+
+    @NotNull(message = "ID não pode ser nulo")
     private Integer id;
 
     public Integer getId() {
@@ -14,5 +15,4 @@ public class Aluno extends User {
     public void setId(Integer id) {
         this.id = id;
     }
-
 }

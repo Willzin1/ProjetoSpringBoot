@@ -3,14 +3,10 @@ package com.eteczl.cadastro_alunos.controllers;
 import com.eteczl.cadastro_alunos.models.Aluno;
 import com.eteczl.cadastro_alunos.models.Professor;
 import com.eteczl.cadastro_alunos.models.User;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.transform.Source;
-import javax.xml.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,61 +16,65 @@ import java.util.stream.Collectors;
 @RequestMapping("/cadastro")
 public class AlunoController {
 
-    private static List<User> users = new ArrayList<>();
+    private static List<User> pessoas = new ArrayList<>();
 
     @GetMapping("/alunos")
-    public List<User> indexAlunos() {
-        return users.stream().filter(user -> user instanceof Aluno)
-                .map(user -> (Aluno) user)
+    public List<User> index() {
+        return pessoas.stream()
+                .filter(user -> user instanceof Aluno)
                 .collect(Collectors.toList());
     }
 
     @PostMapping("/alunos")
-    public User storeAluno(@RequestBody Aluno aluno) {
-        users.add(aluno);
-
+    public Aluno store(@RequestBody @Valid Aluno aluno) {
+        pessoas.add(aluno);
         return aluno;
     }
 
-    @PutMapping("/alunos/{alunoID}/edit")
-    public ResponseEntity<Object> updateAluno(@PathVariable int alunoID, @RequestBody Aluno alunoNovo) {
-        // Buscar o aluno com o ID correspondente
-        for (User user : users) {
+    @GetMapping("/aluno/{alunoId}")
+    public ResponseEntity<Object> show(@PathVariable int alunoId) {
+        for (User user : pessoas) {
             if (user instanceof Aluno) {
                 Aluno aluno = (Aluno) user;
+                if (aluno.getId() == alunoId) {
+                    return ResponseEntity.ok().body(aluno);
+                }
+            }
+        }
+        return ResponseEntity.badRequest().body(Map.of("error", "Aluno não encontrado"));
+    }
 
-
-                if (aluno.getId() == alunoID) {
-                    // Verificar a idade do aluno
+    @PutMapping("/aluno/{id}/edit")
+    public ResponseEntity<Object> update(@PathVariable int id, @RequestBody @Valid Aluno alunoNovo) {
+        for (User user : pessoas) {
+            if (user instanceof Aluno) {
+                Aluno aluno = (Aluno) user;
+                if (aluno.getId() == id) {
                     if (aluno.getIdade() >= 18) {
-                        // Atualizar os dados do aluno
                         aluno.setNome(alunoNovo.getNome());
                         aluno.setSobrenome(alunoNovo.getSobrenome());
                         aluno.setIdade(alunoNovo.getIdade());
-                        // Retornar a resposta com o aluno atualizado
                         return ResponseEntity.ok(aluno);
                     } else {
-                        // Se o aluno não tem idade suficiente
                         return ResponseEntity.badRequest().body(Map.of("error", "Somente alunos maiores de 18 anos podem alterar informações"));
                     }
                 }
             }
         }
-        // Caso o aluno não seja encontrado
-        return ResponseEntity.badRequest().body(Map.of("error", "Aluno não encontrado"));
+        return ResponseEntity.status(404).body(Map.of("erro", "Aluno não encontrado"));
     }
 
-    @GetMapping("/professores")
-    public List<User> indexProfessores(){
-        return users.stream().filter(user -> user instanceof Professor)
-                .map(user -> (Professor) user)
-                .collect(Collectors.toList());
+    @DeleteMapping("/aluno/{id}/delete")
+    public ResponseEntity<Object> destroy(@PathVariable int id) {
+        for (User user : pessoas) {
+            if (user instanceof Aluno) {
+                Aluno aluno = (Aluno) user;
+                if (aluno.getId() == id) {
+                    pessoas.remove(aluno);
+                    return ResponseEntity.ok().body(Map.of("success", "Aluno deletado com sucesso!"));
+                }
+            }
+        }
+        return ResponseEntity.badRequest().body(Map.of("erro", "Aluno não encontrado"));
     }
-
-    @PostMapping("/professores")
-    public User storeProfessores(@RequestBody @Valid Professor professor) {
-        users.add(professor);
-        return professor;
-    }
-
 }
