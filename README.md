@@ -1,2 +1,23 @@
-![store](https://github.com/user-attachments/assets/f18c2b12-b6be-4fab-97cc-64fe5c645ed3)
-![index](https://github.com/user-attachments/assets/7f86c208-c01e-4248-ac83-c2c467498ec8)
+
+#  API Simples com Spring Boot
+
+Este projeto é uma API REST desenvolvida com **Spring Boot**, simulando operações básicas de um banco de dados, ideal para estudos e testes de consumo de APIs. Desenvolvida como exercício na disciplina de Desenvolvimento de Sistemas pela **ETEC**.
+
+---
+
+## Funcionalidades
+
+- Listagem de registros
+- Criação de novos dados
+- Atualização e exclusão (CRUD completo)
+- Simulação de banco de dados com:
+  - [ ] Lista em array list
+
+---
+
+## Tecnologias Utilizadas
+
+- Java 17+
+- Spring Boot
+- Spring Web
+- Validator
